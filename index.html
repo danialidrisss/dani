@@ -242,6 +242,9 @@ footer{text-align:center;padding:1.5rem;font-size:0.75rem;color:var(--muted);bor
     <div class="checkout-form">
       <div class="form-row"><input class="form-input" type="text" id="firstName" placeholder="Prénom *"/><input class="form-input" type="text" id="lastName" placeholder="Nom *"/></div>
       <div class="form-row"><input class="form-input" type="email" id="emailField" placeholder="Email *"/></div>
+      <div class="form-row"><input class="form-input" type="text" id="addressField" placeholder="Adresse *"/></div>
+      <div class="form-row"><input class="form-input" type="text" id="cityField" placeholder="Ville *"/><input class="form-input" type="text" id="zipField" placeholder="Code postal *"/></div>
+      <div class="form-row"><input class="form-input" type="text" id="countryField" placeholder="Pays *"/></div>
     </div>
     <div class="error-box" id="errBox"></div>
     <button class="pay-now" onclick="handlePay()">🔒 Payer maintenant</button>
@@ -446,20 +449,33 @@ function handlePay(){
   const fn=document.getElementById('firstName').value.trim();
   const ln=document.getElementById('lastName').value.trim();
   const em=document.getElementById('emailField').value.trim();
+  const addr=document.getElementById('addressField').value.trim();
+  const city=document.getElementById('cityField').value.trim();
+  const zip=document.getElementById('zipField').value.trim();
+  const country=document.getElementById('countryField').value.trim();
   const err=document.getElementById('errBox');
   err.classList.remove('show');
   if(!cart.length){toast('Votre panier est vide !');return;}
   if(!fn||!ln){err.textContent='⚠️ Entrez votre prénom et nom.';err.classList.add('show');return;}
   if(!em||!em.includes('@')){err.textContent='⚠️ Entrez un email valide.';err.classList.add('show');return;}
+  if(!addr||!city||!zip||!country){err.textContent='⚠️ Entrez votre adresse complète.';err.classList.add('show');return;}
   const totalQty=cart.reduce((a,x)=>a+x.qty,0);
+  const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+  const items=cart.map(x=>`• ${x.name} — Taille ${x.size} x${x.qty}`).join('\n');
+  const msg=`🛒 *NOUVELLE COMMANDE KICKZONE*\n\n👤 ${fn} ${ln}\n📧 ${em}\n📍 ${addr}, ${zip} ${city}, ${country}\n\n${items}\n\n💰 Total: ${total.toFixed(2).replace('.',',')} €\n📦 Quantité: ${totalQty} maillot(s)`;
+  // Envoyer vers Google Sheets (invisible)
+  const SHEET_URL='https://script.google.com/macros/s/AKfycbzrnWbPs0O1Jo-oq9ICDJWujWXNFJT5FP1zRmD8U83XCWqH0kxTK4oitZHmHa4RmAX90Q/exec';
+  const payload={
+    prenom:fn, nom:ln, email:em,
+    adresse:addr, ville:city, codePostal:zip, pays:country,
+    commande:items, total:total.toFixed(2)+' €', quantite:totalQty
+  };
+  fetch(SHEET_URL,{method:'POST',body:JSON.stringify(payload),mode:'no-cors'}).catch(()=>{});
+  // Rediriger vers Revolut
   const qty=Math.min(totalQty,6);
   const link=REVOLUT_LINKS[qty];
   if(link){
-    window.location.href=link;
-  }else{
-    const items=cart.map(x=>`• ${x.name} T.${x.size} x${x.qty}`).join('\n');
-    const msg=`🛒 *Commande KICKZONE*\n\n👤 ${fn} ${ln}\n📧 ${em}\n\n${items}\n\n_Merci d'envoyer le lien de paiement_`;
-    window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+    setTimeout(()=>{window.location.href=link;},800);
   }
 }
 </script>
