@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KICKZONE — Maillots Coupe du Monde 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--black:#0a0a0a;--dark:#111318;--card:#16191f;--border:#252830;--white:#f0efe8;--accent:#e8ff47;--accent2:#ff4747;--muted:#6b7080;--radius:4px;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--white);min-height:100vh;overflow-x:hidden;}
+*,*:hover{cursor:default;}button,a,select{cursor:pointer!important;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--dark);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.ticker-wrap{position:fixed;top:0;left:0;right:0;z-index:102;width:100%;background:#e8ff47;overflow:hidden;padding:0.55rem 0;white-space:nowrap;}
+.ticker-track{display:inline-block;animation:ticker 22s linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+.ticker-item{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#0a0a0a;padding:0 2rem;}
+.ticker-sep{color:rgba(0,0,0,0.3);margin:0 0.5rem;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+header{position:fixed;top:34px;left:0;right:0;z-index:100;background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.logo{font-family:'Barlow Condensed',cursive;font-size:1.6rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--white);}
+.logo em{color:var(--accent);font-style:normal;}
+.cart-trigger{display:flex;align-items:center;gap:8px;background:var(--accent);color:var(--black);border:none;padding:0.5rem 1.1rem;font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:var(--radius);transition:transform 0.15s;}
+.cart-trigger:hover{transform:translateY(-1px);background:#d4eb30;}
+.cart-count{background:var(--black);color:var(--accent);border-radius:50%;width:18px;height:18px;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.hero{margin-top:94px;padding:5rem 2rem 3rem;position:relative;overflow:hidden;background:var(--dark);border-bottom:1px solid var(--border);}
+.hero-img-wrap{position:absolute;inset:0;overflow:hidden;}
+.hero-img-bg{position:absolute;inset:-8%;background:url('stadium.jpg') center center/cover no-repeat;animation:kenburns 25s ease-in-out infinite alternate;transform-origin:center center;}
+@keyframes kenburns{0%{transform:scale(1) rotate(0deg) translate(0%,0%);}25%{transform:scale(1.06) rotate(0.4deg) translate(-1%,0.5%);}50%{transform:scale(1.1) rotate(0deg) translate(1%,-0.5%);}75%{transform:scale(1.07) rotate(-0.3deg) translate(-0.5%,1%);}100%{transform:scale(1.04) rotate(0.2deg) translate(0.5%,0);}}
+.hero-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.15) 0%,rgba(10,10,10,0.5) 60%,rgba(10,10,10,0.92) 100%),linear-gradient(90deg,rgba(10,10,10,0.4) 0%,transparent 50%,rgba(10,10,10,0.2) 100%);}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto;}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:0.95;letter-spacing:-1px;text-transform:uppercase;margin-bottom:2rem;}
+.hero h1 span{color:var(--accent);}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.15);flex-wrap:wrap;}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:var(--accent);}
+.stat-label{font-size:0.75rem;color:rgba(240,239,232,0.6);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+.hero-trust{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.1);}
+.hero-trust span{font-size:0.85rem;color:rgba(240,239,232,0.75);letter-spacing:0.3px;}
+.hero-trust strong{color:var(--accent);}
+.hero-trust .stars{color:#e8ff47;}
+.continent-nav{background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:94px;z-index:90;display:flex;overflow-x:auto;padding:0 2rem;}
+.continent-nav::-webkit-scrollbar{height:0;}
+.c-tab{background:none;border:none;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:1rem 1.5rem;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s;}
+.c-tab:hover{color:var(--white);}
+.c-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.main-content{max-width:1200px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+.continent-block{margin-bottom:4rem;}
+.continent-title{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.continent-title::before{content:'';display:block;width:4px;height:2rem;background:var(--accent);border-radius:2px;}
+.country-block{margin-bottom:2.5rem;}
+.country-header{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;}
+.country-flag{font-size:1.4rem;}
+.country-name{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;}
+.country-line{flex:1;height:1px;background:linear-gradient(90deg,var(--border) 0%,transparent 100%);}
+.products-grid{display:flex;flex-direction:row;overflow-x:auto;gap:8px;background:var(--border);border:1px solid var(--border);scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.products-grid::-webkit-scrollbar{display:none;}
+.product-card{background:var(--card);position:relative;overflow:hidden;transition:background 0.2s;flex:0 0 90%;scroll-snap-align:start;}
+@media(min-width:600px){.product-card{flex:0 0 300px;}}
+.product-card:hover{background:#1c1f27;}
+.product-img{width:100%;background:#0e1014;position:relative;overflow:hidden;}
+
+.product-img img{width:100%;height:auto;display:block;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);}
+.product-card:hover .product-img img{transform:scale(1.06);}
+.type-tag{position:absolute;top:10px;left:10px;font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:2px;}
+.type-home{background:var(--accent);color:var(--black);}
+.type-away{background:#4a9eff;color:var(--black);}
+.type-third{background:var(--accent2);color:white;}
+.brand-tag{position:absolute;bottom:10px;right:10px;font-size:0.65rem;font-weight:600;color:var(--muted);background:rgba(0,0,0,0.6);padding:2px 7px;border-radius:2px;letter-spacing:0.5px;}
+.product-body{padding:0.75rem 1rem;}
+.product-name{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--white);margin-bottom:0;line-height:1.2;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;margin-top:0.6rem;}
+.product-price{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:var(--accent);letter-spacing:0.5px;}
+.size-pick{background:var(--dark);border:1px solid var(--border);color:var(--white);padding:0.35rem 0.6rem;font-family:'Barlow',sans-serif;font-size:0.8rem;border-radius:var(--radius);}
+.add-to-cart{background:transparent;border:1px solid var(--border);color:var(--white);padding:0.45rem 0.9rem;font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:var(--radius);transition:all 0.15s;white-space:nowrap;}
+.add-to-cart:hover{background:var(--accent);border-color:var(--accent);color:var(--black);}
+.add-to-cart.added{background:#27ae60;border-color:#27ae60;color:white;}
+.how-section{background:var(--dark);border-top:1px solid var(--border);padding:4rem 2rem;}
+.how-inner{max-width:1200px;margin:0 auto;}
+.how-title{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin-bottom:2.5rem;}
+.how-title span{color:var(--accent);}
+.how-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);}
+.how-step{background:var(--card);padding:2rem 1.5rem;}
+.step-num{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:var(--border);line-height:1;margin-bottom:1rem;}
+.step-icon{font-size:1.8rem;margin-bottom:0.75rem;}
+.step-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.4rem;}
+.step-desc{font-size:0.8rem;color:var(--muted);line-height:1.55;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;backdrop-filter:blur(4px);}
+.overlay.open{display:block;}
+.cart-panel{position:fixed;top:0;right:0;width:min(460px,100vw);height:100vh;background:var(--dark);border-left:1px solid var(--border);z-index:201;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);}
+.cart-panel.open{transform:translateX(0);}
+.cart-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cart-title{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--accent);}
+.cart-close{background:none;border:1px solid var(--border);color:var(--muted);font-size:1rem;width:32px;height:32px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.cart-close:hover{border-color:var(--accent2);color:var(--accent2);}
+.cart-body{flex:1;overflow-y:auto;padding:1rem 1.5rem;}
+.cart-empty{text-align:center;padding:4rem 1rem;color:var(--muted);}
+.cart-empty-icon{font-size:3rem;margin-bottom:1rem;opacity:0.4;}
+.cart-item{display:flex;gap:0.75rem;padding:0.85rem 0;border-bottom:1px solid var(--border);align-items:center;}
+.cart-thumb{width:52px;height:52px;object-fit:contain;background:#0e1014;border-radius:var(--radius);flex-shrink:0;}
+.cart-item-info{flex:1;min-width:0;}
+.cart-item-name{font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cart-item-meta{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+.cart-item-price{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:var(--accent);white-space:nowrap;}
+.qty-row{display:flex;align-items:center;gap:6px;margin-top:5px;}
+.qty-btn{width:22px;height:22px;background:var(--border);border:none;color:var(--white);border-radius:2px;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:background 0.15s;}
+.qty-btn:hover{background:var(--muted);}
+.qty-val{font-size:0.85rem;font-weight:700;min-width:18px;text-align:center;}
+.rm-btn{background:none;border:none;color:var(--border);font-size:0.9rem;padding:4px;transition:color 0.15s;}
+.rm-btn:hover{color:var(--accent2);}
+.cart-foot{padding:1.25rem 1.5rem;border-top:1px solid var(--border);background:var(--black);}
+.cart-shipping{background:rgba(232,255,71,0.08);border:1px solid rgba(232,255,71,0.2);color:var(--accent);font-size:0.78rem;font-weight:600;padding:0.5rem 0.75rem;border-radius:var(--radius);margin-bottom:1rem;text-align:center;letter-spacing:0.5px;}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;}
+.cart-total-label{font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.cart-total-amount{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--accent);}
+.checkout-form{margin-bottom:1rem;}
+.form-row{display:flex;gap:8px;margin-bottom:8px;}
+.form-input{flex:1;background:var(--card);border:1px solid var(--border);color:var(--white);padding:0.7rem 0.9rem;font-family:'Barlow',sans-serif;font-size:0.85rem;border-radius:var(--radius);outline:none;width:100%;transition:border-color 0.15s;}
+.form-input:focus{border-color:var(--accent);}
+.form-input::placeholder{color:var(--muted);}
+.pay-now{width:100%;background:var(--accent);color:var(--black);border:none;padding:1rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;gap:10px;transition:background 0.15s,transform 0.15s;}
+.pay-now:hover{background:#d4eb30;}
+.pay-now:active{transform:scale(0.98);}
+.secure-note{text-align:center;font-size:0.72rem;color:var(--muted);margin-top:0.75rem;letter-spacing:0.3px;}
+.error-box{background:rgba(255,71,71,0.1);border:1px solid rgba(255,71,71,0.3);color:#ff7070;border-radius:var(--radius);padding:0.7rem 0.9rem;font-size:0.82rem;margin-bottom:0.75rem;display:none;}
+.error-box.show{display:block;}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--accent);color:var(--black);padding:0.7rem 1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:var(--radius);z-index:400;transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);white-space:nowrap;box-shadow:0 8px 32px rgba(232,255,71,0.3);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+footer{text-align:center;padding:1.5rem;font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border);letter-spacing:0.5px;}
+@media(max-width:600px){header{padding:0 1rem;}.hero{padding:3rem 1rem 2rem;}.hero-stats{gap:1.5rem;}.main-content{padding:1.5rem 1rem 3rem;}.products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}.continent-nav{padding:0 1rem;}.form-row{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">🎁 2 Maillots achetés = 1 Offert <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🚚 Livraison gratuite en Europe <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🎁 2 Maillots achetés = 1 Offert <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">⚡ Expédition sous 24h <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🎁 2 Maillots achetés = 1 Offert <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🚚 Livraison gratuite en Europe <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">🎁 2 Maillots achetés = 1 Offert <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">⚡ Expédition sous 24h <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<header>
+  <div class="logo">KICK<em>ZONE</em></div>
+  <button class="cart-trigger" onclick="openCart()">Panier <div class="cart-count" id="badge">0</div></button>
+</header>
+
+<div class="hero">
+  <div class="hero-img-wrap"><div class="hero-img-bg"></div><div class="hero-img-overlay"></div></div>
+  <div class="hero-inner">
+    <h1>Maillots<br><span>Coupe du Monde</span><br>2026</h1>
+    <div class="hero-stats">
+      <div><div class="stat-num">57</div><div class="stat-label">Maillots</div></div>
+      <div><div class="stat-num">27</div><div class="stat-label">Nations</div></div>
+      <div><div class="stat-num">4</div><div class="stat-label">Continents</div></div>
+      <div><div class="stat-num">24h</div><div class="stat-label">Expédition</div></div>
+    </div>
+    <div class="hero-trust">
+      <span><span class="stars">★★★★★</span> <strong>4,7/5</strong> · <strong>+1 300 clients satisfaits</strong></span>
+      <span><strong>Livraison gratuite en Europe</strong></span>
+    </div>
+  </div>
+</div>
+
+<nav class="continent-nav">
+  <button class="c-tab active" onclick="scrollToContinent('europe',this)">Europe</button>
+  <button class="c-tab" onclick="scrollToContinent('afrique',this)">Afrique</button>
+  <button class="c-tab" onclick="scrollToContinent('ameriques',this)">Amériques</button>
+  <button class="c-tab" onclick="scrollToContinent('asie',this)">Asie & Océanie</button>
+</nav>
+
+<div class="main-content">
+  <!-- EUROPE -->
+  <div class="continent-block" id="sect-europe">
+    <div class="continent-title">Europe</div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇧🇪</span><span class="country-name">Belgique</span><div class="country-line"></div></div><div class="products-grid" id="grid-belgique"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇩🇪</span><span class="country-name">Allemagne</span><div class="country-line"></div></div><div class="products-grid" id="grid-allemagne"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="country-name">Angleterre</span><div class="country-line"></div></div><div class="products-grid" id="grid-angleterre"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇭🇷</span><span class="country-name">Croatie</span><div class="country-line"></div></div><div class="products-grid" id="grid-croatie"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇫🇷</span><span class="country-name">France</span><div class="country-line"></div></div><div class="products-grid" id="grid-france"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇮🇹</span><span class="country-name">Italie</span><div class="country-line"></div></div><div class="products-grid" id="grid-italie"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇳🇱</span><span class="country-name">Pays-Bas</span><div class="country-line"></div></div><div class="products-grid" id="grid-paysbas"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇵🇹</span><span class="country-name">Portugal</span><div class="country-line"></div></div><div class="products-grid" id="grid-portugal"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇨🇭</span><span class="country-name">Suisse</span><div class="country-line"></div></div><div class="products-grid" id="grid-suisse"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇹🇷</span><span class="country-name">Turquie</span><div class="country-line"></div></div><div class="products-grid" id="grid-turquie"></div></div>
+  </div>
+
+  <!-- AFRIQUE -->
+  <div class="continent-block" id="sect-afrique">
+    <div class="continent-title">Afrique</div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇨🇲</span><span class="country-name">Cameroun</span><div class="country-line"></div></div><div class="products-grid" id="grid-cameroun"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇨🇩</span><span class="country-name">RD Congo</span><div class="country-line"></div></div><div class="products-grid" id="grid-rdcongo"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇪🇬</span><span class="country-name">Égypte</span><div class="country-line"></div></div><div class="products-grid" id="grid-egypte"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇲🇦</span><span class="country-name">Maroc</span><div class="country-line"></div></div><div class="products-grid" id="grid-maroc"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇳🇬</span><span class="country-name">Nigeria</span><div class="country-line"></div></div><div class="products-grid" id="grid-nigeria"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇸🇳</span><span class="country-name">Sénégal</span><div class="country-line"></div></div><div class="products-grid" id="grid-senegal"></div></div>
+  </div>
+
+  <!-- AMÉRIQUES -->
+  <div class="continent-block" id="sect-ameriques">
+    <div class="continent-title">Amériques</div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇦🇷</span><span class="country-name">Argentine</span><div class="country-line"></div></div><div class="products-grid" id="grid-argentine"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇧🇷</span><span class="country-name">Brésil</span><div class="country-line"></div></div><div class="products-grid" id="grid-bresil"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇨🇦</span><span class="country-name">Canada</span><div class="country-line"></div></div><div class="products-grid" id="grid-canada"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇨🇱</span><span class="country-name">Chili</span><div class="country-line"></div></div><div class="products-grid" id="grid-chili"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇨🇴</span><span class="country-name">Colombie</span><div class="country-line"></div></div><div class="products-grid" id="grid-colombie"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇲🇽</span><span class="country-name">Mexique</span><div class="country-line"></div></div><div class="products-grid" id="grid-mexique"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇺🇾</span><span class="country-name">Uruguay</span><div class="country-line"></div></div><div class="products-grid" id="grid-uruguay"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇺🇸</span><span class="country-name">USA</span><div class="country-line"></div></div><div class="products-grid" id="grid-usa"></div></div>
+  </div>
+
+  <!-- ASIE & OCÉANIE -->
+  <div class="continent-block" id="sect-asie">
+    <div class="continent-title">Asie & Océanie</div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇦🇺</span><span class="country-name">Australie</span><div class="country-line"></div></div><div class="products-grid" id="grid-australie"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇰🇷</span><span class="country-name">Corée du Sud</span><div class="country-line"></div></div><div class="products-grid" id="grid-coree"></div></div>
+    <div class="country-block"><div class="country-header"><span class="country-flag">🇯🇵</span><span class="country-name">Japon</span><div class="country-line"></div></div><div class="products-grid" id="grid-japon"></div></div>
+  </div>
+</div>
+
+<div class="how-section">
+  <div class="how-inner">
+    <div class="how-title">Comment <span>ça marche</span> ?</div>
+    <div class="how-steps">
+      <div class="how-step"><div class="step-num">01</div><div class="step-icon">🛒</div><div class="step-title">Choisissez</div><div class="step-desc">Sélectionnez vos maillots et votre taille.</div></div>
+      <div class="how-step"><div class="step-num">02</div><div class="step-icon">📋</div><div class="step-title">Validez</div><div class="step-desc">Entrez votre prénom et email.</div></div>
+      <div class="how-step"><div class="step-num">03</div><div class="step-icon">💳</div><div class="step-title">Payez</div><div class="step-desc">Page de paiement sécurisé Revolut.</div></div>
+      <div class="how-step"><div class="step-num">04</div><div class="step-icon">📦</div><div class="step-title">Livraison</div><div class="step-desc">Expédié sous 24h. Gratuit en Europe.</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 KICKZONE — Maillots Coupe du Monde 2026 · Livraison gratuite Europe · Paiement sécurisé Revolut</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head"><div class="cart-title">Panier</div><button class="cart-close" onclick="closeCart()">✕</button></div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot">
+    <div class="cart-shipping">🚚 Livraison gratuite en Europe</div>
+    <div class="cart-total-row"><div class="cart-total-label">Total</div><div class="cart-total-amount" id="cartTotal">0,00 €</div></div>
+    <div class="checkout-form">
+      <div class="form-row"><input class="form-input" type="text" id="firstName" placeholder="Prénom *"/><input class="form-input" type="text" id="lastName" placeholder="Nom *"/></div>
+      <div class="form-row"><input class="form-input" type="email" id="emailField" placeholder="Email *"/></div>
+    </div>
+    <div class="error-box" id="errBox"></div>
+    <button class="pay-now" onclick="handlePay()">🔒 Payer maintenant</button>
+    <div class="secure-note">Paiement 100% sécurisé via Revolut · CB · Apple Pay · Google Pay</div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const PAYMENT_LINKS={"69.99":"#LIEN_REVOLUT_6999","74.99":"#LIEN_REVOLUT_7499","79.99":"#LIEN_REVOLUT_7999","84.99":"#LIEN_REVOLUT_8499","89.99":"#LIEN_REVOLUT_8999","94.99":"#LIEN_REVOLUT_9499","139.98":"#","144.98":"#","149.98":"#","154.98":"#","159.98":"#","164.98":"#","169.98":"#","174.98":"#","179.98":"#","184.98":"#","189.98":"#","209.97":"#","219.97":"#","229.97":"#","239.97":"#","249.97":"#","259.97":"#","269.97":"#","279.97":"#"};
+
+const S=["S","M","L","XL","XXL"];
+const SM=["S","M","L","XL"];
+
+const PRODUCTS=[
+  // BELGIQUE
+  {id:1,grid:"belgique",name:"Belgique Domicile 2026",desc:"Rouge intense avec motif flammes en relief, col noir/doré, bandes Adidas dorées. Les Diables Rouges en feu !",brand:"Adidas",type:"home",img:"belgique-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:2,grid:"belgique",name:"Belgique Édition Collector",desc:"Adidas Originals tie-dye rose et bleu ciel, demi-cercles graphiques, bandes noires vintage. Pièce collector exclusive.",brand:"Adidas Originals",type:"third",img:"belgique-special.jpg.jpeg",price:29.99,sizes:SM},
+  // ALLEMAGNE
+  {id:3,grid:"allemagne",name:"Allemagne Domicile 2026",desc:"Blanc avec chevrons tricolores noir/rouge/or inspirés du légendaire 1990, col V tricolore. Nostalgie et modernité réunies.",brand:"Adidas",type:"home",img:"allemagne-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:4,grid:"allemagne",name:"Allemagne Extérieur 2026",desc:"Version extérieure de la Mannschaft. Design audacieux aux couleurs nationales inversées.",brand:"Adidas",type:"away",img:"allemagne-ext.jpg.jpeg",price:29.99,sizes:S},
+  // ANGLETERRE
+  {id:5,grid:"angleterre",name:"Angleterre Domicile 2026",desc:"Blanc immaculé avec col V marine, liserés rouge/bleu, swoosh Nike marine, écusson Three Lions. Classique intemporel.",brand:"Nike",type:"home",img:"angleterre-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:6,grid:"angleterre",name:"Angleterre Extérieur 2026",desc:"Rouge vif avec motif typographique lions en filigrane, col V marine, manchettes tricolores. Audacieux et moderne.",brand:"Nike",type:"away",img:"angleterre-ext.jpg.jpeg",price:29.99,sizes:S},
+  // CROATIE
+  {id:7,grid:"croatie",name:"Croatie Domicile 2026",desc:"Damier rouge et blanc iconique avec effet pixelisé au centre, col V rouge, swoosh Nike bleu. Le plus reconnaissable au monde !",brand:"Nike",type:"home",img:"croatie-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:8,grid:"croatie",name:"Croatie Extérieur 2026",desc:"Version extérieure des Champions du Monde 2018. Design Nike épuré aux couleurs inversées.",brand:"Nike",type:"away",img:"croatie-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // FRANCE
+  {id:9,grid:"france",name:"France Domicile 2026",desc:"Bleu marine profond avec rayures diagonales en jacquard, col polo blanc boutonné, swoosh Nike doré, coq FFF doré 2 étoiles.",brand:"Nike",type:"home",img:"france-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:10,grid:"france",name:"France Extérieur 2026",desc:"Vert menthe/céladon avec liserés dorés, manchettes tricolores bleu/blanc/rouge, swoosh Nike doré. Couleur inattendue et élégante.",brand:"Nike",type:"away",img:"france-ext.jpg.jpeg",price:29.99,sizes:S},
+  // ITALIE
+  {id:11,grid:"italie",name:"Italie Domicile 2026",desc:"Bleu Azzurro profond, motif chevron jacquard, 4 étoiles dorées, bandes Adidas. L'élégance italienne au sommet.",brand:"Adidas",type:"home",img:"italie-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:12,grid:"italie",name:"Italie Extérieur Rétro",desc:"Blanc cassé années 80, col V tricolore bleu/or, Adidas Originals. Inspiré du Mondial 1982. Classique absolu.",brand:"Adidas Originals",type:"away",img:"italie-ext.jpg.jpeg",price:29.99,sizes:S},
+  {id:13,grid:"italie",name:"Italie 3ème Maillot Armure",desc:"Bleu nuit, effet armure métallique, détails bleus électriques. Design ultra premium inspiré de la Renaissance.",brand:"Adidas",type:"third",img:"italie-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // PAYS-BAS
+  {id:14,grid:"paysbas",name:"Pays-Bas Domicile 2026",desc:"Orange vif total look avec col V noir, manchettes noires, swoosh Nike noir, lion KNVB noir. L'Orange Mécanique !",brand:"Nike",type:"home",img:"paysbas-dom.jpg.jpeg",price:29.99,sizes:S},
+  // PORTUGAL
+  {id:15,grid:"portugal",name:"Portugal Domicile 2026",desc:"Rouge vif avec motif vagues horizontales en relief inspirées de l'Atlantique, col V vert. Le maillot de Ronaldo !",brand:"Puma",type:"home",img:"portugal-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:16,grid:"portugal",name:"Portugal Extérieur 2026",desc:"Blanc avec vagues océaniques turquoise tourbillonnantes, inspirées des grandes vagues de Nazaré. Magistral.",brand:"Puma",type:"away",img:"portugal-ext.jpg.jpeg",price:29.99,sizes:S},
+  // SUISSE
+  {id:17,grid:"suisse",name:"Suisse Domicile 2026",desc:"Rouge vif, motif topographique alpin en relief, croix suisse encadrée, flancs blancs. La Nati dans toute sa splendeur.",brand:"Puma",type:"home",img:"suisse-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:18,grid:"suisse",name:"Suisse Extérieur Néon 2026",desc:"Vert néon flashy, imprimé nuage camouflage, accents anthracite. Le maillot extérieur le plus audacieux de la Nati.",brand:"Puma",type:"away",img:"suisse-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // TURQUIE
+  {id:19,grid:"turquie",name:"Turquie Domicile 2026",desc:"Rouge feu, sublimation marbre tourbillonnant, drapeau turc encadré en blanc. Audacieux et unique.",brand:"Nike",type:"home",img:"turquie-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:20,grid:"turquie",name:"Turquie Extérieur 2026",desc:"Blanc pur, large bande rouge centrale, croissant lunaire. Sobriété et identité nationale. Nike épuré.",brand:"Nike",type:"away",img:"turquie-ext.jpg.jpeg",price:29.99,sizes:S},
+  // CAMEROUN
+  {id:21,grid:"cameroun",name:"Cameroun Domicile 2026",desc:"Vert forêt profond avec motifs géométriques africains en relief, col jaune/rouge, flancs rouges. Les Lions Indomptables !",brand:"Puma",type:"home",img:"cameroun-dom.jpg.jpeg",price:29.99,sizes:S},
+  // RD CONGO
+  {id:22,grid:"rdcongo",name:"RD Congo Domicile 2026",desc:"Bleu ciel avec motif zébré symétrique blanc en dégradé, col rouge, drapeau congolais brodé, logo Umbro. Unique !",brand:"Umbro",type:"home",img:"rdcongo-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:23,grid:"rdcongo",name:"RD Congo Extérieur 2026",desc:"Blanc avec losanges bleu ciel en dégradé depuis le bas, col bleu ciel, drapeau congolais brodé. Élégant et moderne.",brand:"Umbro",type:"away",img:"rdcongo-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // EGYPTE
+  {id:24,grid:"egypte",name:"Égypte Domicile 2026",desc:"Rouge intense, motif géométrique pyramides/étoiles en relief, flancs noirs, logo Puma doré, 7 étoiles CAN.",brand:"Puma",type:"home",img:"egypte-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:25,grid:"egypte",name:"Égypte Extérieur 2026",desc:"Blanc épuré, motifs pyramides en filigrane, col noir. Sobriété pharaonique et minimalisme élégant.",brand:"Puma",type:"away",img:"egypte-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // MAROC
+  {id:26,grid:"maroc",name:"Maroc Domicile 2026",desc:"Rouge intense, col mao avec broderies zellige dorées/vertes, manchettes ornées de motifs berbères. Les Lions de l'Atlas !",brand:"Puma",type:"home",img:"maroc-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:27,grid:"maroc",name:"Maroc Extérieur 2026",desc:"Version extérieure des Lions de l'Atlas. Design Puma aux couleurs du drapeau marocain revisitées.",brand:"Puma",type:"away",img:"maroc-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // NIGERIA
+  {id:28,grid:"nigeria",name:"Nigeria Domicile 2026",desc:"Blanc immaculé, flammes vert néon jaillissant du bas et des épaules, col V vert. Le maillot le plus fou de la compétition !",brand:"Nike",type:"home",img:"nigeria-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:29,grid:"nigeria",name:"Nigeria Extérieur 2026",desc:"Dégradé vert émeraude, motif pointilliste technologique, flancs noirs. Super Eagles en pleine puissance.",brand:"Nike",type:"away",img:"nigeria-ext.jpg.jpeg",price:29.99,sizes:S},
+  // SENEGAL
+  {id:30,grid:"senegal",name:"Sénégal Domicile 2026",desc:"Vert forêt profond, motifs géométriques africains en relief, col V jaune, flancs rouges. Les Lions de la Téranga.",brand:"Puma",type:"home",img:"senegal-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:31,grid:"senegal",name:"Sénégal Extérieur 2026",desc:"Blanc délicat, motifs culturels sénégalais en pastel — lion, fruits tropicaux, pirogue, losanges. Chef-d'œuvre africain.",brand:"Puma",type:"away",img:"senegal-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // ARGENTINE
+  {id:32,grid:"argentine",name:"Argentine Domicile 2026",desc:"Rayures verticales blanc et bleu ciel iconiques, bandes Adidas dorées, écusson AFA 3 étoiles, badge FIFA. Le maillot des champions !",brand:"Adidas",type:"home",img:"argentine-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:33,grid:"argentine",name:"Argentine Extérieur 2026",desc:"Noir profond avec motif floral baroque bleu électrique tourbillonnant, bandes Adidas Originals. Probablement le plus beau away de la compétition.",brand:"Adidas Originals",type:"away",img:"argentine-ext.jpg.jpeg",price:29.99,sizes:S},
+  // BRESIL
+  {id:34,grid:"bresil",name:"Brésil Domicile 2026",desc:"Jaune canari iconique, col V vert, flancs verts, swoosh Nike vert, écusson CBF 5 étoiles. Le maillot le plus vendu au monde !",brand:"Nike",type:"home",img:"bresil-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:35,grid:"bresil",name:"Brésil Extérieur 2026",desc:"Version extérieure de la Seleção. Design Nike en bleu Canarinho pour les grands matchs.",brand:"Nike",type:"away",img:"bresil-ext.jpg.jpeg",price:29.99,sizes:S},
+  // CANADA
+  {id:36,grid:"canada",name:"Canada Domicile 2026",desc:"Rouge canadien intense, motif géométrique en feu/cristal, col V, manchettes noires, swoosh Nike blanc.",brand:"Nike",type:"home",img:"canada-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:37,grid:"canada",name:"Canada Extérieur Galaxy",desc:"Noir profond avec éclats blancs façon tempête de neige/galaxie explosive, liserés rouges. Brutal et magnifique.",brand:"Nike",type:"away",img:"canada-ext.jpg.jpeg",price:29.99,sizes:S},
+  // CHILI
+  {id:38,grid:"chili",name:"Chili Extérieur 2026",desc:"Blanc cassé avec imprimé fleurs violettes et motif craquelé, col V noir, bandes Adidas Originals. Pièce unique collector.",brand:"Adidas Originals",type:"away",img:"chili-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // COLOMBIE
+  {id:39,grid:"colombie",name:"Colombie Domicile 2026",desc:"Jaune or vif avec motif papillon morpho en relief, col V bleu/orange, bandes Adidas bleues. Vibrant et tropical !",brand:"Adidas",type:"home",img:"colombie-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:40,grid:"colombie",name:"Colombie Extérieur 2026",desc:"Version extérieure des Cafeteros. Design Adidas élégant aux couleurs du drapeau colombien revisitées.",brand:"Adidas",type:"away",img:"colombie-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // MEXIQUE
+  {id:41,grid:"mexique",name:"Mexique Domicile 2026",desc:"Vert intense avec motifs aztèques gravés inspirés du calendrier solaire, col rouge/blanc. Culturellement riche et visuellement époustouflant.",brand:"Adidas",type:"home",img:"mexique-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:42,grid:"mexique",name:"Mexique Extérieur Rétro",desc:"Blanc épuré, col V tricolore vert/blanc/rouge, bandes Adidas Originals tricolores, écusson El Tri gris argenté. Style rétro années 80.",brand:"Adidas Originals",type:"away",img:"mexique-ext.jpg.jpeg",price:29.99,sizes:S},
+  // URUGUAY
+  {id:43,grid:"uruguay",name:"Uruguay Domicile 2026",desc:"Bleu ciel La Celeste épuré avec col polo blanc boutonné, swoosh Nike marine, écusson AUF doré 4 étoiles. Style intemporel.",brand:"Nike",type:"home",img:"uruguay-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:44,grid:"uruguay",name:"Uruguay Extérieur 2026",desc:"Bleu marine profond avec motif rayonnant bleu électrique/violet irisé autour du col façon armure, swoosh Nike doré.",brand:"Nike",type:"away",img:"uruguay-ext.jpg.jpeg",price:29.99,sizes:S},
+  {id:45,grid:"uruguay",name:"Uruguay 3ème Maillot 2026",desc:"Bleu marine profond avec rayons lumineux bleus électriques rayonnants, effet armure premium. Spectaculaire.",brand:"Nike",type:"third",img:"uruguay-ext2.jpg.jpeg",price:29.99,sizes:SM},
+  // USA
+  {id:46,grid:"usa",name:"USA Domicile 2026",desc:"Rayures rouges et blanches ondulées inspirées du drapeau, col V marine, swoosh Nike marine. Le maillot du pays hôte !",brand:"Nike",type:"home",img:"usa-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:47,grid:"usa",name:"USA Extérieur 2026",desc:"Noir profond avec motif étoiles en relief, liserés rouges sur les coutures, swoosh Nike blanc. Sombre et élégant.",brand:"Nike",type:"away",img:"usa-ext.jpg.jpeg",price:29.99,sizes:S},
+  // AUSTRALIE
+  {id:48,grid:"australie",name:"Australie Domicile 2026",desc:"Jaune or vif avec col V vert, swoosh Nike vert, écusson Football Australia avec kangourou et émeu. Les Socceroos !",brand:"Nike",type:"home",img:"australie-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:49,grid:"australie",name:"Australie Extérieur 2026",desc:"Dégradé rose corail vers vert sarcelle, col vert, swoosh Nike blanc. Inspiré des couleurs de l'Outback au coucher du soleil.",brand:"Nike",type:"away",img:"australie-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // COREE
+  {id:50,grid:"coree",name:"Corée du Sud Domicile 2026",desc:"Rouge intense avec motif camouflage tigre animé en relief, manchettes noires/blanches, écusson tigre coréen. Force pure.",brand:"Nike",type:"home",img:"coree-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:51,grid:"coree",name:"Corée du Sud Extérieur 2026",desc:"Violet lavande avec imprimé floral pivoine dégradé, tigre brodé au col, écusson bleu roi. Culture coréenne sublimée.",brand:"Nike",type:"away",img:"coree-ext.jpg.jpeg",price:29.99,sizes:SM},
+  // JAPON
+  {id:52,grid:"japon",name:"Japon Domicile 2026",desc:"Bleu indigo profond avec motif lignes ondulées concentriques en bleu ciel, col V blanc/rouge, bandes Adidas blanches. Les Samouraïs Bleus !",brand:"Adidas",type:"home",img:"japon-dom.jpg.jpeg",price:29.99,sizes:S},
+  {id:53,grid:"japon",name:"Japon Extérieur 2026",desc:"Version extérieure des Samouraïs Bleus. Design Adidas épuré pour conquérir le monde.",brand:"Adidas",type:"away",img:"japon-ext.jpg.jpeg",price:29.99,sizes:SM},
+];
+
+const TYPE_LABELS={home:"Domicile",away:"Extérieur",third:"3ème"};
+const TYPE_CLASS={home:"type-home",away:"type-away",third:"type-third"};
+let cart=[];
+
+// Fix the wrong section div
+
+function renderGrid(gridId){
+  const el=document.getElementById('grid-'+gridId);
+  if(!el)return;
+  el.innerHTML=PRODUCTS.filter(p=>p.grid===gridId).map(p=>`
+    <div class="product-card">
+      <div class="product-img">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"/>
+        <div class="type-tag ${TYPE_CLASS[p.type]}">${TYPE_LABELS[p.type]}</div>
+        <div class="brand-tag">${p.brand}</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-footer">
+          <div class="product-price">${p.price.toFixed(2).replace('.',',')} €</div>
+          <select class="size-pick" id="size-${p.id}">${p.sizes.map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
+          <button class="add-to-cart" id="btn-${p.id}" onclick="addToCart(${p.id})">+ Panier</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+['belgique','allemagne','angleterre','croatie','france','italie','paysbas','portugal','suisse','turquie',
+ 'cameroun','rdcongo','egypte','maroc','nigeria','senegal',
+ 'argentine','bresil','canada','chili','colombie','mexique','uruguay','usa',
+ 'australie','coree','japon'].forEach(renderGrid);
+
+function scrollToContinent(id,btn){
+  document.querySelectorAll('.c-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const el=document.getElementById('sect-'+id);
+  const top=el.getBoundingClientRect().top+window.scrollY-160;
+  window.scrollTo({top,behavior:'smooth'});
+}
+
+window.addEventListener('scroll',()=>{
+  const sections=['europe','afrique','ameriques','asie'];
+  let current='europe';
+  sections.forEach(id=>{
+    const el=document.getElementById('sect-'+id);
+    if(el&&el.getBoundingClientRect().top<=170)current=id;
+  });
+  document.querySelectorAll('.c-tab').forEach((btn,i)=>{
+    btn.classList.toggle('active',sections[i]===current);
+  });
+});
+
+function addToCart(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  const size=document.getElementById('size-'+p.id).value;
+  const ex=cart.find(x=>x.id===id&&x.size===size);
+  if(ex){ex.qty++;}else{cart.push({...p,size,qty:1});}
+  updateBadge();
+  toast(`${p.name} (${size}) ajouté !`);
+  const btn=document.getElementById('btn-'+id);
+  btn.textContent='✓ Ajouté';btn.classList.add('added');
+  setTimeout(()=>{btn.textContent='+ Panier';btn.classList.remove('added');},1500);
+}
+function changeQty(i,d){cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);updateBadge();renderCart();}
+function removeItem(i){cart.splice(i,1);updateBadge();renderCart();}
+function updateBadge(){document.getElementById('badge').textContent=cart.reduce((a,x)=>a+x.qty,0);}
+
+function renderCart(){
+  const body=document.getElementById('cartBody');
+  const totalEl=document.getElementById('cartTotal');
+  if(!cart.length){body.innerHTML=`<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Votre panier est vide</p></div>`;totalEl.textContent='0,00 €';return;}
+  body.innerHTML=cart.map((item,i)=>`
+    <div class="cart-item">
+      <img class="cart-thumb" src="${item.img}" alt="${item.name}" onerror="this.style.display='none'"/>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-meta">Taille ${item.size} · ${item.brand}</div>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+        </div>
+      </div>
+      <div class="cart-item-price">${(item.price*item.qty).toFixed(2).replace('.',',')} €</div>
+      <button class="rm-btn" onclick="removeItem(${i})">✕</button>
+    </div>
+  `).join('');
+  const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+  totalEl.textContent=total.toFixed(2).replace('.',',')+' €';
+}
+
+function openCart(){renderCart();document.getElementById('overlay').classList.add('open');document.getElementById('cartPanel').classList.add('open');}
+function closeCart(){document.getElementById('overlay').classList.remove('open');document.getElementById('cartPanel').classList.remove('open');}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+function handlePay(){
+  const fn=document.getElementById('firstName').value.trim();
+  const ln=document.getElementById('lastName').value.trim();
+  const em=document.getElementById('emailField').value.trim();
+  const err=document.getElementById('errBox');
+  err.classList.remove('show');
+  if(!cart.length){toast('Votre panier est vide !');return;}
+  if(!fn||!ln){err.textContent='⚠️ Entrez votre prénom et nom.';err.classList.add('show');return;}
+  if(!em||!em.includes('@')){err.textContent='⚠️ Entrez un email valide.';err.classList.add('show');return;}
+  const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+  const key=total.toFixed(2);
+  const link=PAYMENT_LINKS[key];
+  if(link&&!link.startsWith('#LIEN')&&link!=='#'){
+    window.location.href=link;
+  }else{
+    const items=cart.map(x=>`• ${x.name} T.${x.size} x${x.qty} = ${(x.price*x.qty).toFixed(2)}€`).join('\n');
+    const msg=`🛒 *Commande KICKZONE*\n\n👤 ${fn} ${ln}\n📧 ${em}\n\n${items}\n\n💰 Total: ${key} €\n🚚 Livraison gratuite\n\n_Merci d'envoyer le lien de paiement_`;
+    window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+  }
+}
+</script>
+</body>
+</html>
