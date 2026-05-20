@@ -251,7 +251,15 @@ footer{text-align:center;padding:1.5rem;font-size:0.75rem;color:var(--muted);bor
 <div class="toast" id="toast"></div>
 
 <script>
-const PAYMENT_LINKS={"69.99":"#LIEN_REVOLUT_6999","74.99":"#LIEN_REVOLUT_7499","79.99":"#LIEN_REVOLUT_7999","84.99":"#LIEN_REVOLUT_8499","89.99":"#LIEN_REVOLUT_8999","94.99":"#LIEN_REVOLUT_9499","139.98":"#","144.98":"#","149.98":"#","154.98":"#","159.98":"#","164.98":"#","169.98":"#","174.98":"#","179.98":"#","184.98":"#","189.98":"#","209.97":"#","219.97":"#","229.97":"#","239.97":"#","249.97":"#","259.97":"#","269.97":"#","279.97":"#"};
+// Liens Revolut par nombre de maillots commandés (offre 2+1 gratuit)
+const REVOLUT_LINKS={
+  1:"https://checkout.revolut.com/pay/89a655d0-22c3-4dd9-a0bd-71255102babc",
+  2:"https://checkout.revolut.com/pay/11afaef6-bc58-48f4-ad32-d40b00a0eee7",
+  3:"https://checkout.revolut.com/pay/5510078f-4dc2-4eb8-a97e-c4fb4e592414",
+  4:"https://checkout.revolut.com/pay/423c1b5e-fec5-4819-8345-e5de78b11bb7",
+  5:"https://checkout.revolut.com/pay/e8c5da03-49b2-4482-b937-09391b0cefb5",
+  6:"https://checkout.revolut.com/pay/1348863c-52b9-43e2-a184-602f39289052"
+};
 
 const S=["S","M","L","XL","XXL"];
 const SM=["S","M","L","XL"];
@@ -443,14 +451,14 @@ function handlePay(){
   if(!cart.length){toast('Votre panier est vide !');return;}
   if(!fn||!ln){err.textContent='⚠️ Entrez votre prénom et nom.';err.classList.add('show');return;}
   if(!em||!em.includes('@')){err.textContent='⚠️ Entrez un email valide.';err.classList.add('show');return;}
-  const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
-  const key=total.toFixed(2);
-  const link=PAYMENT_LINKS[key];
-  if(link&&!link.startsWith('#LIEN')&&link!=='#'){
+  const totalQty=cart.reduce((a,x)=>a+x.qty,0);
+  const qty=Math.min(totalQty,6);
+  const link=REVOLUT_LINKS[qty];
+  if(link){
     window.location.href=link;
   }else{
-    const items=cart.map(x=>`• ${x.name} T.${x.size} x${x.qty} = ${(x.price*x.qty).toFixed(2)}€`).join('\n');
-    const msg=`🛒 *Commande KICKZONE*\n\n👤 ${fn} ${ln}\n📧 ${em}\n\n${items}\n\n💰 Total: ${key} €\n🚚 Livraison gratuite\n\n_Merci d'envoyer le lien de paiement_`;
+    const items=cart.map(x=>`• ${x.name} T.${x.size} x${x.qty}`).join('\n');
+    const msg=`🛒 *Commande KICKZONE*\n\n👤 ${fn} ${ln}\n📧 ${em}\n\n${items}\n\n_Merci d'envoyer le lien de paiement_`;
     window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
   }
 }
