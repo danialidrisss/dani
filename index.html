@@ -464,7 +464,7 @@ function handlePay(){
   const items=cart.map(x=>`• ${x.name} — Taille ${x.size} x${x.qty}`).join('\n');
   const msg=`🛒 *NOUVELLE COMMANDE KICKZONE*\n\n👤 ${fn} ${ln}\n📧 ${em}\n📍 ${addr}, ${zip} ${city}, ${country}\n\n${items}\n\n💰 Total: ${total.toFixed(2).replace('.',',')} €\n📦 Quantité: ${totalQty} maillot(s)`;
   // Envoyer vers Google Sheets (invisible)
-  const SHEET_URL='https://script.google.com/macros/s/AKfycbzrnWbPs0O1Jo-oq9ICDJWujWXNFJT5FP1zRmD8U83XCWqH0kxTK4oitZHmHa4RmAX90Q/exec';
+  const SHEET_URL='https://script.google.com/macros/s/AKfycbx7VMOOLfti9c3qrZeXtLFLQXYydbHVluhousq3eJoS-s76EUfqrZ3r1A8QOIBA8uAl/exec';
   const payload={
     prenom:fn, nom:ln, email:em,
     adresse:addr, ville:city, codePostal:zip, pays:country,
